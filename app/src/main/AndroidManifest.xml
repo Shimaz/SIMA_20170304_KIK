@@ -7,14 +7,39 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+        android:hardwareAccelerated="true">
+
+        <activity android:name=".MainActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activty android:name=".NoteActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+
+        </activty>
+
+        <activty android:name=".MediaActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+
+        </activty>
+
+
+        <activty android:name=".InfoActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+
+        </activty>
+
+
     </application>
 
 </manifest>
