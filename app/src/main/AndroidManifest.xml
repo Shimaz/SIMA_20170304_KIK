@@ -21,15 +21,15 @@
             </intent-filter>
         </activity>
 
-        <activty
+        <activity
             android:name=".NoteActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <activty
+        <activity
             android:name=".MediaActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <activty
+        <activity
             android:name=".InfoActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />

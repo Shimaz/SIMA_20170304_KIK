@@ -1,6 +1,7 @@
 package kr.tangomike.sima_20170304_kik;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,6 +30,9 @@ public class MainActivity extends Activity {
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in_short, R.anim.fade_out_short);
 
             }
         });
@@ -38,6 +42,9 @@ public class MainActivity extends Activity {
         btnArtwork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ArtworkActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in_short, R.anim.fade_out_short);
 
             }
         });
@@ -47,6 +54,9 @@ public class MainActivity extends Activity {
         btnNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in_short, R.anim.fade_out_short);
 
             }
         });
@@ -56,6 +66,9 @@ public class MainActivity extends Activity {
         btnMedia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MediaActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in_short, R.anim.fade_out_short);
 
             }
         });

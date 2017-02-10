@@ -4,6 +4,45 @@
     android:id="@+id/activity_note"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kr.tangomike.sima_20170304_kik.NoteActivity">
+    android:background="@drawable/note_img_bg"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/note_img_title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="168dp"/>
+
+
+
+    <ScrollView
+        android:layout_width="688dp"
+        android:layout_height="432dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="168dp"
+        android:layout_marginTop="192dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/note_img_text"/>
+
+    </ScrollView>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_close"
+        android:background="@drawable/note_btn_home"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="480dp"
+        android:layout_marginTop="664dp"
+        />
+
+
 
 </RelativeLayout>
