@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_close"
-        android:background="@drawable/note_btn_home"
+        android:background="@drawable/artwork_btn_home"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="480dp"
