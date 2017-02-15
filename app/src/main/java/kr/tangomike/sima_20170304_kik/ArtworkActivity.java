@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Layout;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.view.ViewGroup.LayoutParams;
+
 
 public class ArtworkActivity extends Activity {
 
@@ -22,7 +25,10 @@ public class ArtworkActivity extends Activity {
 
     private ImageView ivCaption;
 
+    private LayoutParams captionLP;
+
     private boolean isCaptionOn;
+    private boolean isPageSet;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,8 @@ public class ArtworkActivity extends Activity {
         dc = (DataCollection)getApplicationContext();
         dc.startTick();
 
+
+        isPageSet = true;
 
         btnHome = (Button)findViewById(R.id.btn_home);
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -51,11 +59,16 @@ public class ArtworkActivity extends Activity {
         btnCaption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isCaptionOn){
-                    HideCaption();
-                }else{
-                    ShowCaption();
+
+                if(isPageSet){
+                    if(isCaptionOn){
+                        HideCaption();
+                    }else{
+                        ShowCaption();
+                    }
                 }
+
+
 
 
             }
@@ -82,13 +95,38 @@ public class ArtworkActivity extends Activity {
 
             @Override
             public void onPageSelected(int position) {
-                android.util.Log.i("shimaz", "" + position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
                 android.util.Log.i("shimaz", "" + state);
+
+                switch (state){
+                    case 0: // page set
+                        isPageSet = true;
+                        if(isCaptionOn) UndimCaption();
+
+                        break;
+
+                    case 1: // start scroll
+                        isPageSet = false;
+                        if(isCaptionOn) DimCaption();
+
+                        break;
+
+                    case 2: // on scroll
+                        isPageSet = false;
+
+                        break;
+
+
+                    default:
+                        break;
+
+                }
+
+
 
             }
         };
@@ -112,6 +150,16 @@ public class ArtworkActivity extends Activity {
         pager.setOnDragListener(dragListener);
 
 
+        captionLP = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        ivCaption = new ImageView(this);
+        ivCaption.setPivotX(1.0f);
+        ivCaption.setPivotY(1.0f);
+
+        ivCaption.setLayoutParams(captionLP);
+
+
+
+
     }
 
 
@@ -125,10 +173,13 @@ public class ArtworkActivity extends Activity {
 
     private void DimCaption(){
 
+        btnCaption.setAlpha(0.5f);
+
     }
 
     private void UndimCaption(){
 
+        btnCaption.setAlpha(1.0f);
     }
 
     public class SimaPagerAdapter extends PagerAdapter{
