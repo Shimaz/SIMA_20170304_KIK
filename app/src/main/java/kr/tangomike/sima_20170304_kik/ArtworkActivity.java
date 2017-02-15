@@ -88,6 +88,8 @@ public class ArtworkActivity extends Activity {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+                android.util.Log.i("shimaz", "" + state);
+
             }
         };
 
@@ -119,7 +121,13 @@ public class ArtworkActivity extends Activity {
 
     private void HideCaption(){
         isCaptionOn = false;
+    }
 
+    private void DimCaption(){
+
+    }
+
+    private void UndimCaption(){
 
     }
 
