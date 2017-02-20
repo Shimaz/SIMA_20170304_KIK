@@ -1,6 +1,8 @@
 package kr.tangomike.sima_20170304_kik;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.VideoView;
 
-public class MediaActivity extends Activity {
+public class MediaActivity extends Activity implements Runnable{
 
 
     private Button btnClose;
@@ -28,6 +30,7 @@ public class MediaActivity extends Activity {
     private ImageView ivTitle;
 
     private VideoView vv;
+    private AudioManager am;
 
     private int videoNumber;
 
@@ -101,9 +104,17 @@ public class MediaActivity extends Activity {
         });
 
 
-
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         sbAudio = (SeekBar)findViewById(R.id.sb_audio);
+        sbAudio.setMax(am.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+        sbAudio.setProgress(am.getStreamVolume(AudioManager.STREAM_MUSIC));
+        sbAudio.setOnSeekBarChangeListener(onSeekVolume);
+
         sbVideo = (SeekBar)findViewById(R.id.sb_video);
+        sbVideo.setOnSeekBarChangeListener(onSeekVideo);
+
+
 
 
         vv = (VideoView)findViewById(R.id.vv_media);
@@ -113,6 +124,7 @@ public class MediaActivity extends Activity {
         vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
+                setupLeftovers();
                 dc.stopTick();
                 vv.start();
                 btnPlayPause.setBackgroundResource(R.drawable.media_btn_pause);
@@ -141,6 +153,48 @@ public class MediaActivity extends Activity {
 
     }
 
+    private SeekBar.OnSeekBarChangeListener onSeekVolume = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            am.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+
+            android.util.Log.i("shimaz", "" + progress);
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+
+    private SeekBar.OnSeekBarChangeListener onSeekVideo = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if(fromUser) vv.seekTo(progress);
+            sbAudio.setProgress(progress);
+//            nowTime.setText(getTimeString(progress));
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+            if(vv.isPlaying()) vv.pause();
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+            vv.start();
+        }
+    };
+
 
     private void setVideo(int number){
         videoNumber = number;
@@ -163,6 +217,46 @@ public class MediaActivity extends Activity {
 
         }
 
+
+    }
+
+
+    private void setupLeftovers(){
+
+        sbVideo.setMax(vv.getDuration());
+        videoThread = new Thread(MediaActivity.this);
+
+        videoThread.start();
+
+    }
+
+    @Override
+    public void run(){
+        int current;
+        while(vv != null)
+        {
+            try{
+                Thread.sleep(1000);
+                current = vv.getCurrentPosition();
+                if(vv.isPlaying()){
+                    dc.resetTimer();
+                    sbVideo.setProgress(current);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Override
+    protected void onDestroy(){
+        if(vv != null){
+            if(vv.isPlaying()) vv.stopPlayback();
+            vv = null;
+        }
+
+        super.onDestroy();
 
     }
 }
