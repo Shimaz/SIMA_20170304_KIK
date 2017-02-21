@@ -1,6 +1,9 @@
 package kr.tangomike.sima_20170304_kik;
 
 import android.app.Application;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 
 /**
  * Created by shimaz on 2017-02-09.
@@ -12,6 +15,7 @@ public class DataCollection extends Application {
     private static final int RESET_TIME = 60;
     private boolean isTicking;
 
+    private Handler mHandler;
 
     public void onCreate(){
         super.onCreate();
@@ -19,13 +23,35 @@ public class DataCollection extends Application {
         isTicking = false;
 
         // TODO: Use broadcast for timer function
+
+        mHandler = new Handler(){
+          public void handleMessage(Message msg){
+              if(isTicking) ticktime++;
+
+              if(ticktime < RESET_TIME){
+                  mHandler.sendEmptyMessageDelayed(0, 1000);
+                  android.util.Log.i("shimaz", "" + ticktime);
+              }else if(ticktime >= RESET_TIME){
+                  ticktime = 0;
+                  isTicking = false;
+                  mHandler.removeMessages(0);
+
+                  Intent intent  = new Intent("shimaz.restart");
+                  sendBroadcast(intent);
+              }
+
+          }
+
+
+        };
     }
 
 
 
-    public int getTicktime(){
-        return ticktime;
-    }
+
+//    public int getTicktime(){
+//        return ticktime;
+//    }
 
     public void resetTimer(){
         ticktime = 0;
@@ -33,11 +59,14 @@ public class DataCollection extends Application {
 
     public void stopTick(){
         isTicking = false;
+        mHandler.removeMessages(0);
     }
 
     public void startTick(){
         ticktime = 0;
         isTicking = true;
+        mHandler.sendEmptyMessageDelayed(0, 1000);
+
     }
 
 }

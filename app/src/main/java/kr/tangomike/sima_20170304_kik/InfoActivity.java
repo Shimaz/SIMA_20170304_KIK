@@ -1,12 +1,29 @@
 package kr.tangomike.sima_20170304_kik;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
 public class InfoActivity extends Activity {
+
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            android.util.Log.i("shimaz", "receoved");
+
+            finish();
+        }
+    };
+
+    private IntentFilter mFilter = new IntentFilter("shimaz.restart");
 
     private DataCollection dc;
 
@@ -17,6 +34,7 @@ public class InfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         super.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        registerReceiver(mReceiver, mFilter);
 
         dc = (DataCollection)getApplicationContext();
         dc.startTick();
@@ -36,6 +54,13 @@ public class InfoActivity extends Activity {
     }
 
 
+
+    @Override
+    public void onDestroy(){
+        unregisterReceiver(mReceiver);
+        super.onDestroy();
+
+    }
 
 
 }

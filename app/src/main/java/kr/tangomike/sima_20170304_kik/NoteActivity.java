@@ -1,11 +1,25 @@
 package kr.tangomike.sima_20170304_kik;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 public class NoteActivity extends Activity {
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
+
+    private IntentFilter mFilter = new IntentFilter("shimaz.restart");
+
 
     private DataCollection dc;
     private Button btnClose;
@@ -15,6 +29,8 @@ public class NoteActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
+
+        registerReceiver(mReceiver, mFilter);
 
         dc = (DataCollection)getApplicationContext();
         dc.startTick();
@@ -30,4 +46,11 @@ public class NoteActivity extends Activity {
         });
 
     }
+
+    @Override
+    public void onDestroy(){
+        unregisterReceiver(mReceiver);
+        super.onDestroy();
+    }
+
 }

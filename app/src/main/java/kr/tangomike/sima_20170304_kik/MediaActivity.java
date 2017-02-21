@@ -1,7 +1,10 @@
 package kr.tangomike.sima_20170304_kik;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -15,6 +18,16 @@ import android.widget.VideoView;
 
 public class MediaActivity extends Activity implements Runnable{
 
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            finish();
+
+        }
+    };
+
+    private IntentFilter mFilter = new IntentFilter("shimaz.restart");
 
     private Button btnClose;
     private Button btnPlayPause;
@@ -45,6 +58,8 @@ public class MediaActivity extends Activity implements Runnable{
 
         dc = (DataCollection)getApplicationContext();
 //        dc.startTick();
+
+        registerReceiver(mReceiver, mFilter);
 
         videoNumber = 1;
 
@@ -255,6 +270,8 @@ public class MediaActivity extends Activity implements Runnable{
             if(vv.isPlaying()) vv.stopPlayback();
             vv = null;
         }
+
+        unregisterReceiver(mReceiver);
 
         super.onDestroy();
 

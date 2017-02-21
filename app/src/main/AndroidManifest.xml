@@ -7,8 +7,9 @@
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true">
+        android:label="김인겸전"
+        android:supportsRtl="true"
+        android:largeHeap="true">
         <activity
             android:name=".MainActivity"
             android:screenOrientation="sensorLandscape"
