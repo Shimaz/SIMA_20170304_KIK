@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -125,10 +126,12 @@ public class MediaActivity extends Activity implements Runnable{
         sbAudio.setMax(am.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
         sbAudio.setProgress(am.getStreamVolume(AudioManager.STREAM_MUSIC));
         sbAudio.setOnSeekBarChangeListener(onSeekVolume);
+        sbAudio.setThumb(ResourcesCompat.getDrawable(getResources(), R.drawable.media_btn_thumb_audio, null));
+
 
         sbVideo = (SeekBar)findViewById(R.id.sb_video);
         sbVideo.setOnSeekBarChangeListener(onSeekVideo);
-
+        sbVideo.setThumb(ResourcesCompat.getDrawable(getResources(), R.drawable.media_btn_thumb_video, null));
 
 
 

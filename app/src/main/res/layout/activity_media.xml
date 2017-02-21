@@ -81,7 +81,9 @@
         android:layout_width="429dp"
         android:layout_height="28dp"
         android:layout_marginLeft="389dp"
-        android:layout_marginTop="707dp"
+        android:layout_marginTop="695dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:id="@+id/sb_video"
         style="@style/thinBarStyle"/>
     
@@ -89,8 +91,10 @@
         android:layout_width="79dp"
         android:layout_height="26dp"
         android:layout_marginLeft="912dp"
-        android:layout_marginTop="707dp"
+        android:layout_marginTop="695dp"
         android:id="@+id/sb_audio"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         style="@style/thinBarStyle"/>
     
 </RelativeLayout>
