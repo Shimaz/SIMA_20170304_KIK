@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 
 public class NoteActivity extends Activity {
 
@@ -23,6 +25,8 @@ public class NoteActivity extends Activity {
 
     private DataCollection dc;
     private Button btnClose;
+
+    private ScrollView scrl;
 
 
     @Override
@@ -42,6 +46,15 @@ public class NoteActivity extends Activity {
                 finish();
                 overridePendingTransition(R.anim.fade_in_short, R.anim.fade_out_short);
 
+            }
+        });
+
+        scrl = (ScrollView)findViewById(R.id.scrl_note);
+        scrl.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dc.resetTimer();
+                return false;
             }
         });
 
