@@ -86,6 +86,9 @@ public class ArtworkActivity extends Activity {
             @Override
             public void onClick(View view) {
 
+
+                dc.resetTimer();
+
                 if(isPageSet){
                     if(isCaptionOn){
                         HideCaption();
@@ -128,6 +131,7 @@ public class ArtworkActivity extends Activity {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+                dc.resetTimer();
 
                 switch (state){
                     case 0: // page set
@@ -262,7 +266,7 @@ public class ArtworkActivity extends Activity {
 
         @Override
         public int getCount() {
-            return 10;
+            return 13;
         }
 
         @Override
