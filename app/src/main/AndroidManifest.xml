@@ -7,7 +7,7 @@
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="김인겸전"
+        android:label="김인겸_A"
         android:supportsRtl="true"
         android:largeHeap="true">
         <activity
