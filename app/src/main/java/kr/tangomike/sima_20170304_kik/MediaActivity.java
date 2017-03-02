@@ -129,8 +129,8 @@ public class MediaActivity extends Activity implements Runnable{
         sbAudio.setOnSeekBarChangeListener(onSeekVolume);
         sbAudio.setThumb(ResourcesCompat.getDrawable(getResources(), R.drawable.media_btn_thumb_audio, null));
 
-        sbAudio.setProgress(10);
-        am.setStreamVolume(AudioManager.STREAM_MUSIC, 10, 0);
+        sbAudio.setProgress(7);
+        am.setStreamVolume(AudioManager.STREAM_MUSIC, 7, 0);
 
         sbVideo = (SeekBar)findViewById(R.id.sb_video);
         sbVideo.setOnSeekBarChangeListener(onSeekVideo);
